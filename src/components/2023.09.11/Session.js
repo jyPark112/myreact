@@ -27,7 +27,7 @@ const Bigbox3 = styled.div`
   margin: 0 auto;
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  margin-top: 20px;
+  margin-top: 15px;
   img {
     width: 100%;
     height: 50vh;
