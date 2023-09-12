@@ -8,7 +8,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  color: orange;
+  color: ${(props) => (props.isActive ? "orange" : "green")};
 `;
 
 const Image = styled.img`
@@ -29,6 +29,7 @@ export function List() {
     imageUrl: "https://i.imgur.com/fbPFOeH.jpeg",
     imageSize: 90,
   };
+  let 변수 = true;
   return (
     <>
       <h1>List Component</h1>
@@ -39,7 +40,9 @@ export function List() {
         ))}
       </ul>
       <Container>
-        <Title>{user.name}</Title>
+        <Title isActive={false} fontColor="red">
+          {user.name}
+        </Title>
         <Image src={user.imageUrl} />
       </Container>
     </>
