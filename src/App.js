@@ -8,6 +8,8 @@ import { Menu } from "./components/2023.09.13/Menu";
 import { Home } from "./components/2023.09.13/Home";
 import { createGlobalStyle } from "styled-components";
 import { Button } from "./components/2023.09.13/Button";
+import { Gallery } from "./components/2023.09.14/Gallery";
+import { OpenWeather } from "./components/2023.09.14/OpenWeather";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -29,7 +31,7 @@ export default function App() {
   return (
     <>
       <GlobalStyle />
-      <Home />
+      <OpenWeather />
     </>
   );
 }
