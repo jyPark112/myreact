@@ -10,6 +10,8 @@ import { createGlobalStyle } from "styled-components";
 import { Button } from "./components/2023.09.13/Button";
 import { Gallery } from "./components/2023.09.14/Gallery";
 import { OpenWeather } from "./components/2023.09.14/OpenWeather";
+import { MyRef } from "./components/2023.09.15/MyRef";
+import { MyRouter } from "./components/2023.09.15/MyRouter";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -31,7 +33,7 @@ export default function App() {
   return (
     <>
       <GlobalStyle />
-      <OpenWeather />
+      <MyRouter />
     </>
   );
 }

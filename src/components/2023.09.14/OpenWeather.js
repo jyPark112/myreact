@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Container = styled.div`
   height: 100vh;
@@ -45,14 +45,45 @@ const Info = styled.div`
   margin-top: 30px;
 `;
 
-export function OpenWeather() {
+export function OpenWeather({ cityName }) {
   const API_KEY = "9a3f6122e86b31486d8177d82f910822";
+  const API_KEY_NINJA = "P2vwnJwCcW41yc2IXcvdfA==ToIEDwypPnqWBOEs";
+
   const [icon, setIcon] = useState(null);
   const [temp, setTemp] = useState(0);
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState("");
 
-  navigator.geolocation.getCurrentPosition(geoOK, geoError);
+  useEffect(() => {
+    if (cityName) {
+      // 닌자한테 해당 도시의 위도, 경도를 요청
+      const urlToNinja = `https://api.api-ninjas.com/v1/city?name=${cityName}`;
+      fetch(urlToNinja, {
+        headers: {
+          "X-Api-Key": API_KEY_NINJA,
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const position = {
+            coords: {
+              latitude: data[0].latitude,
+              longitude: data[0].longitude,
+            },
+          };
+          geoOK(position);
+        })
+        .catch((error) => {
+          geoError(error);
+        });
+    } else {
+      // 특정도시 이름을 입력하지 않았으므로 그냥 현재 위치를 요청
+      navigator.geolocation.getCurrentPosition(geoOK, geoError);
+    }
+  }, []);
 
   function geoOK(position) {
     const lat = position.coords.latitude;
