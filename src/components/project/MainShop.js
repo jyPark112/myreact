@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { LogoImg } from "./LogoImg";
+import { Container2 } from "./Container2";
 
 const Container = styled.div`
   width: 100vw;
@@ -37,6 +38,7 @@ export function MainShop() {
           </Box>
         </LogoBar>
         <LogoImg />
+        <Container2 />
       </Container>
     </>
   );
