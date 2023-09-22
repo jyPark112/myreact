@@ -1,0 +1,513 @@
+//  mobile smNav
+//아코디언 
+
+var navMobile = {
+  init: function() {
+    this.moAction();
+  },
+  moAction: function() {
+    var depth_1 = $('.gnb_mobile .depth01');
+    var depth_2 = $('.gnb_mobile .depth02');
+    var depth_3 = $('.gnb_mobile .depth03');
+    var depth_1_down = $('.gnb_mobile .depth01_down');
+    var depth_2_down = $('.gnb_mobile .depth02_down');
+    var nav_close = $('.nav_close');
+    var nav_bg = $('.nav_bg');
+
+    $(depth_2).hide();
+    $(depth_3).hide();
+    $(nav_bg).hide();
+
+    $(depth_1).each(function() {
+      if ($(this).children("ul").length > 0) {
+        $(this).children('a').click(function() {
+          if ($(this).next('ul').css('display') === 'none') {
+            $(depth_1).children('a').removeClass('selected1');
+            $(this).addClass('selected1');
+            $(depth_2).slideUp(300);
+            $(this).next().stop().slideDown(300);
+          } else {
+            $(this).next('ul').slideUp(200);
+            $(depth_1).children('a').removeClass('selected1');
+          }
+          return false;
+        });
+      } else {
+        $(this).find('a').addClass('no');
+      }
+    });
+
+    // 메뉴
+
+    $('.nav_btn').on('click', function() {
+      if ($('.gnb_mobile').hasClass('on') === false) {
+        $('.gnb_mobile').addClass('on');
+        $(nav_bg).fadeIn(300);
+        $("body").css("overflow-y","hidden");
+        $(this).addClass('on');
+      } else {
+        $(this).removeClass('on');
+        $('.gnb_mobile').removeClass('on');
+        $(nav_bg).fadeOut(100);
+        $("body").css("overflow-y","auto");
+        $(depth_2).hide();
+        $(depth_3).hide();
+        $(depth_1).children('a').removeClass('selected1');
+        $(depth_2_down).children('a').removeClass('selected2');
+      }
+    });
+
+    $('.nav_btn_off, .nav_bg').on('click', function() {
+      $('.gnb_mobile').removeClass('on');
+      $("body").css("overflow-y","auto");
+      $(nav_bg).fadeOut(100);
+      $(depth_2).hide();
+      $(depth_3).hide();
+      $(depth_1).children('a').removeClass('selected1');
+      $(depth_2_down).children('a').removeClass('selected2');
+    });
+  }
+};
+
+$(function(){
+  var tabWrap = $('.tab-wrap');
+  var tabBtn = $('.tab-wrap .tab li > a');
+  var conAll = $('.tab-wrap .tab-content');
+  $(tabBtn).not('.no_tab').click(function () {
+    tabHref = $(this).attr('href');
+    $(this).parents('.tab-wrap').find('.tab-content').hide();
+    $(tabHref).show();
+  
+    
+    if(tabHref=="#home_car") $(".car_more_btn").attr("href", "/buy/car.asp?home_yn=Y");
+    if(tabHref=="#first_car") $(".car_more_btn").attr("href", "/buy/car.asp?gbncode=002001,002002,002003");
+    if(tabHref=="#hybrid_car") $(".car_more_btn").attr("href", "/buy/car.asp?tokm=10000");
+    if(tabHref=="#no_acci") $(".car_more_btn").attr("href", "/buy/car.asp?fromyy=2019&frommm=01&tokm=20000");
+    //if(tabHref=="#no_acci") $(".car_more_btn").attr("href", "/buy/car.asp?gas="+escape("하이브리드(L),하이브리드(G),CNG,전기,수소"));
+
+    $(this).parents('.tab-wrap').find(".tab li > a").removeClass('on');
+    if ( $(this).hasClass('no_tab') ) {
+      $(this).removeClass('on');
+    } else {		
+      $(this).addClass('on');
+    }		
+	
+    return false;
+  });
+})
+
+$(function(){
+  var tabWrap = $('.tab-wrap2');
+  var tabBtn = $('.tab-wrap2 .tab2 li > a');
+  var conAll = $('.tab-wrap2 .tab-content2');
+  $(tabBtn).click(function () {
+    tabHref = $(this).attr('href');
+    $(this).parents('.tab-wrap2').find('.tab-content2').hide();
+    $(tabHref).show();
+    $(this).parents('.tab-wrap2').find(".tab2 li > a").removeClass('on');
+    $(this).addClass('on');
+    return false;
+  });
+})
+
+
+
+/*슬라이더*/
+var slick = {
+  init: function() {
+    this.slick_01();
+    this.slick_02();
+    this.slick_03();
+  },
+  slick_01: function() {
+    $('.main_visu_wrap .visu_slide').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite : false,
+      autoplay: true,
+      autoplaySpeed:6000,
+      dots: false,
+      speed:1000,
+      prevArrow : '.control_bx .prev',
+      nextArrow : '.control_bx .next',
+    });
+    var show = $('.main_visu_wrap .slick-slide').length;
+    $('.main_visu_wrap .pager .total').text(show);
+    $('.main_visu_wrap .slick-slider').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+      var i = (currentSlide ? currentSlide : 0) + 1;
+      $('.main_visu_wrap .pager .now').text(i);           
+    });
+  },
+  slick_02: function() {
+    $('.car_view_wrap .big-img').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      fade: true,
+      autoplay: false,
+      dots: false,
+      arrows: true,
+      prevArrow: '<button type="button" class="slick-button slick-button--prev xi-angle-left-thin" title="이전 슬라이드"></button>',
+      nextArrow: '<button type="button" class="slick-button slick-button--next xi-angle-right-thin" title="다음 슬라이드"></button>',
+      speed:300,
+      asNavFor : '.car_view_wrap .thum-img'
+    }),
+    $('.car_view_wrap .thum-img').slick({
+      slidesToShow: 10,
+      slidesToScroll: 1,
+      infinite: false,
+      //rows: 2,
+      autoplay: false,
+      dots: false,
+      arrows: false,
+      focusOnSelect: true,
+      speed:300,
+      asNavFor : '.car_view_wrap .big-img'
+    });
+
+    $('.car_view_wrap .big-img').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+      var $carVideoSrc = $('#car-video').attr('data-src');
+
+      if ( $('.item--video').hasClass('slick-current') ) {
+        //$('#car-video').show();  
+        $('#car-video').attr('src', $carVideoSrc);
+      } else {
+        //$('#car-video').hide();
+        $('#car-video').attr('src', '');
+      }         
+    });
+  },
+  slick_03: function() {
+    $('.branch_introd .b-big-img').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      fade: true,
+      autoplay: false,
+      dots: false,
+      arrows: false,
+      speed:300,
+      asNavFor : '.branch_introd .b-thum-img'
+    }),
+    $('.branch_introd .b-thum-img').slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      autoplay: false,
+      dots: false,
+      arrows: false,
+      speed:300,
+      focusOnSelect: true,
+      variableHeight: true,
+      vertical: true,
+      asNavFor : '.branch_introd .b-big-img'
+    });
+    // $(".detail_area .tab li a").click(function(){
+    //   $('.branch_introd .b-big-img').slick('setPosition');
+    //   $('.branch_introd .b-thum-img').slick('setPosition');
+    // })
+  }
+};
+
+
+
+
+
+
+$(window).scroll(function(){
+  if ( $(window).width() > 1024 ) {
+    sideQuick();
+  }
+});
+$(document).ready(function(){
+  if ( $(window).width() > 1024 ) {
+    sideQuick();
+  }
+});
+
+function sideQuick() {
+  var headerH = $("#header").outerHeight();
+  $("#side_quick").css("top",headerH);
+
+  var st = $(window).scrollTop();
+  var headerH = $("#header").outerHeight();
+  var visuH = $('.sub_visu_wrap.fix').outerHeight();
+  
+  if(st > 100) {
+    $('.sub_visu_wrap.car_title').addClass('fix'); 
+    $("#side_quick").css("top", visuH);
+  } else {
+    $('.sub_visu_wrap.car_title').removeClass('fix');
+    $("#side_quick").css("top", headerH);
+  }
+}
+
+
+
+$(function(){
+  $('body.sub #header').addClass('sub');
+
+  $(window).scroll(function(){
+    var st = $(this).scrollTop();
+    if(st > 1) {
+      $('body.main #header').addClass('scroll'); 
+    } else {
+      $('body.main #header').removeClass('scroll');
+    }
+  });
+})
+
+$(function(){
+  $('#side_quick .go_top').click(function () {
+    $('html, body').animate({scrollTop:0}, 700);
+    return false;
+  });
+  $('#side_quick .tab li a').not('.no_tab').click(function(){
+    $('html').addClass('fix');
+  })
+  $('#side_quick .cont_area .close_btn').click(function () {
+    $(this).parent(".tab-content").hide();
+    $('#side_quick .tab li a.on').removeClass('on');
+    $('html').removeClass('fix');
+  });
+})
+
+
+
+$(function(){
+  $('#footer .copy_slide_wrap .tt').click(function(){
+    $(this).toggleClass('on');
+    $(this).next('.copy').slideToggle(300);
+  })
+})
+
+
+$(document).ready(function(){
+  var carlistH = $('.car_search_wrap .car_area').outerHeight();
+  if ( $(window).width() > 1024 ) {
+    $('.car_search_wrap').css("min-height",carlistH + "px");
+  }
+})
+
+$(window).resize(function(){
+  var carlistH = $('.car_search_wrap .car_area').outerHeight();
+  var width_size = window.outerWidth;
+  if (width_size > 1024) {
+    $('.car_search_wrap').css("min-height",carlistH + "px");
+  } else {
+    $('.car_search_wrap').css("min-height",'auto');
+  }
+})
+
+
+$(function(){
+  $('.car_optionbx .detail_view').click(function(){
+    if ( $('.detail_option_bx').css("display") == "none" ) {
+      $('.detail_option_bx').slideDown(300);
+      $(this).text('닫기');
+    } else {
+      $('.detail_option_bx').stop().slideUp(300);
+      $(this).text('상세옵션보기');
+    }
+  })
+})
+
+
+$(function(){
+  $('.tbl_open_btn').click(function(){
+    if ( $('.hide_tbl').css("display") == "none" ) {
+      $('.hide_tbl').slideDown(300);
+      $(this).text('닫기');
+    } else {
+      $('.hide_tbl').stop().slideUp(300);
+      $(this).text('자세히 보기');
+    }
+  })
+})
+
+$(document).ready(function() {
+  if ( $(window).width() < 500 ) {
+    $('.car_search_wrap .car_list_wrap .item').addClass('thum_st');
+    $('.car_search_wrap .car_list_wrap .item:nth-child(1)').removeClass('thum_st');
+    $('.car_search_wrap .car_list_wrap .item:nth-child(2)').removeClass('thum_st');
+    $('.car_search_wrap .car_list_wrap .item:nth-child(3)').removeClass('thum_st');
+  } else {
+    $('.car_search_wrap .car_list_wrap .item').removeClass('thum_st');
+  }
+})
+
+
+
+
+//변수 불러오기 
+$(document).ready(function() {
+  navMobile.init(); //m nav
+  slick.init(); // 
+  magnificPop.init();
+
+  /* 파일첨부 */
+  function file_upload() {
+    var tmp = $(this).val();
+    $(this).parents('.file_bx').find('.file_txt').text(tmp);
+  };
+  $('.file_bx > input').change(file_upload);
+
+  /*메인팝업*/
+   function startPoP(){
+    var winW = $(window).width();
+    if (winW > 1024) {
+      $(".start_pop").draggable({
+        handle: ".modal-header"
+      });
+    }
+   }startPoP();
+     $(window).resize(function() {
+startPoP();
+  })
+});
+
+
+/*팝업 */
+var magnificPop = {
+  init: function() {
+    this.pop_01(); //ajax 팝업 
+  },
+
+  pop_01: function() {
+    $('.popup_link').magnificPopup({
+      type: 'ajax',
+      closeOnBgClick: false,
+    }, 500);
+  }
+}
+function closePopup() {
+  $.magnificPopup.close();
+}
+
+
+
+function scrollSt() {
+  var scrollst = $(".scrollSt")
+  scrollst.mCustomScrollbar({
+    theme:"minimal"
+  }); 
+}
+
+$(document).ready(function(){
+  scrollSt()
+})
+
+$(function(){
+  $(window).on("load",function(){
+    $(".sec_carlist .car_list_wrap").mCustomScrollbar({
+      axis:"x",
+      theme:"dark-3"
+    });
+  });
+  $(window).on("load",function(){
+    $(".best_review").mCustomScrollbar({
+      axis:"x",
+      theme:"dark-3"
+    });
+  });
+  $(window).on("load",function(){
+    $(".b_carlist .car_list_wrap").mCustomScrollbar({
+      axis:"x",
+      theme:"dark-3"
+    });
+  });
+});
+
+
+
+
+
+$(".qna .qna-header a").click(function(){
+  if($(this).parent(".qna-header").next(".qna-body").css("display")=="none"){
+    $(".qna .qna-body").hide()
+    $(".qna .qna-header a").removeClass("select")
+    $(this).addClass("select")
+    $(this).parent(".qna-header").next(".qna-body").show()
+  }else{
+    $(".qna .qna-body").hide()
+    $(this).removeClass("select")
+  }
+})
+
+
+function printPage() {
+  var initBody = document.body.innerHTML;
+  window.onbeforeprint = function() {
+    document.body.innerHTML = document.getElementById("print").innerHTML;
+  }
+
+  window.onafterprint = function() {
+    document.body.innerHTML = initBody;
+  }
+  window.print();
+}
+
+
+function menuScroll(){
+  var Wid = $(window).width();
+  var $subMenu = $('.community_tab');
+  //if (Wid <= 900){
+  var leftPos = $subMenu.scrollLeft();
+  var Left = $('.community_tab li a.on').offset().left;   //on 된 항목 위치 찾기
+  var ulW = $('.community_tab').children();      //ul 사이즈 재기
+  var totalWidth = 0;
+  for (var i = 0; i <  ulW.length; i++) {
+    totalWidth +=  ulW[i].offsetWidth;
+  }     
+  //on 된 항목이 window 바깥에 있다면 on항목까지 스크롤하기
+  //if (Wid < Left + 5){   
+    $subMenu.animate({scrollLeft: Left - 20},1);
+  //}
+  //}
+}
+
+
+/*$(document).ready(function(){
+  if ( $(window).width() < 769 ) {
+    $('.paging-area ul li a.num').not('.active').parent('li').css('display','none');
+  }
+})
+
+$(window).resize(function(){
+  var width_size = window.outerWidth;
+  if (width_size < 769) {
+    $('.paging-area ul li a.num').not('.active').parent('li').css('display','none');
+  } else {
+    $('.paging-area ul li a.num').not('.active').parent('li').css('display','inline-block');
+  }
+})*/
+
+$(document).ready(function(){
+  if ( $(window).width() < 769 ) {
+    var numli = $('.paging-area ul li a.num').length;
+    if ( numli > 5 ) {
+      $('.paging-area ul li:eq(7)').css('clear','both');
+    } 
+  }
+})
+
+$(window).resize(function(){
+  var width_size = window.outerWidth;
+  var numli = $('.paging-area ul li a.num').length;
+  if (width_size < 769) {
+    if ( numli > 5 ) {
+      $('.paging-area ul li:eq(7)').css('clear','both');
+    }
+  } else {
+    $('.paging-area ul li:eq(7)').css('clear','none');
+  }
+});
+
+function scrTrack() {
+  $('.data-track-nav li a').on('click', function(){
+    var scrHref = $(this).attr('href');
+    var paddingTop = $('#header').height() + $('.data-track-nav').height();
+  
+    $('html, body').animate({scrollTop: $(scrHref).offset().top - paddingTop }, 700);
+    $('.data-track-nav li a').removeClass('on');
+    $(this).addClass('on');
+  })
+}
+

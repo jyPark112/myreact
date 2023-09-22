@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-top: 200px;
+  margin-top: 300px;
   width: 100%;
   height: 1000px;
 `;
@@ -12,15 +12,17 @@ const Input = styled.div`
   }
 `;
 const Box = styled.div`
+  position: relative;
+  padding-top: 100px;
   margin: 0 auto;
   width: 70%;
-  height: 80%;
+  height: 100%;
   border: 1px solid;
   border-radius: 20px;
 `;
 const One = styled.div`
   margin-left: 20%;
-  margin-top: 80px;
+  margin-top: 40px;
   display: grid;
   gap: 30px;
 `;
@@ -35,21 +37,24 @@ const Button = styled.button`
 `;
 
 const Image = styled.div`
+  position: absolute;
   width: 100%;
   height: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   margin-top: 70px;
 `;
+
 const Img = styled.div`
-  width: 300px;
-  height: 250px;
+  width: 350px;
+  height: 380px;
   margin: 0 auto;
+  overflow: hidden;
   object-fit: cover;
+  border: 1px solid lightgrey;
+  border-radius: 10px;
   img {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: 65%;
   }
 `;
 
@@ -68,6 +73,7 @@ export function Container2() {
             <Button>SUV</Button>
             <Button>스포츠</Button>
           </One>
+          <h2>추천 차량</h2>
           <Image>
             <Img>
               <img src="https://image.m-park.co.kr/mpark/AttEdit/CarPhoto/Middle/3091501/3091501244R1.jpg" />

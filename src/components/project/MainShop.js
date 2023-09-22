@@ -11,11 +11,12 @@ const LogoBar = styled.div`
   grid-template-columns: 90% 10%;
   width: 100%;
   height: 100px;
-  background-color: #eee;
+  background-color: lightgray;
 `;
 const Img = styled.img`
-  width: 160px;
-  height: 100px;
+  width: 130px;
+  height: 80px;
+  margin: auto 10px;
 `;
 const Box = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ export function MainShop() {
     <>
       <Container>
         <LogoBar>
-          <Img src="" />
+          <Img src="https://cdn.imweb.me/upload/S2023031322a6efd3a5662/b34635c711491.png" />
           <Box>
             <p>로그인</p>
             <p>회원가입</p>

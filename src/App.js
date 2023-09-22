@@ -16,6 +16,9 @@ import { Modal } from "./components/2023.09.15/Modal";
 import { GameShop } from "./components/2023.09.18/GameShop";
 import { MainShop } from "./components/project/MainShop";
 import { SlideBox } from "./components/utils/SildeBox";
+import { MyMotion1 } from "./components/2023.09.22/MyMotion1";
+import { Gesture } from "./components/2023.09.22/Gesture";
+import { MyMotion2 } from "./components/2023.09.22/MyMotion2";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
